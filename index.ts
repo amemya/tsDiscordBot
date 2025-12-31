@@ -10,4 +10,11 @@ const client = new Client({
     ]
 })
 
+const discord_bot_token = process.env.DISCORD_BOT_TOKEN
+const prefix = '!'
+
+client.on('ready', (message) => {
+    console.log('discord bot is ready!')
+})
+
 
