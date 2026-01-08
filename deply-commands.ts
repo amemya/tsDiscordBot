@@ -1,6 +1,9 @@
 import { REST, Routes } from 'discord.js'
 import type { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord-api-types/v10'
 import fs from 'node:fs'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const discord_bot_token = process.env.DISCORD_BOT_TOKEN!
 const clientID = process.env.CLIENT_ID!
@@ -10,7 +13,7 @@ const commands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = []
 const commandFiles = fs.readdirSync('./commands').filter((file: string) => file.endsWith('.ts'))
 
 for (const file of commandFiles) {
-    const command = require(`./commands/${file}`)
+    const command = await import(`./commands/${file}`)
     commands.push(command.data.toJSON())
 }
 
